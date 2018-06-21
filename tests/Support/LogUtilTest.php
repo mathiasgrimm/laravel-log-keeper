@@ -1,6 +1,6 @@
 <?php
 
-use MathiasGrimm\LaravelLogKeeper\Support\LogUtil;
+use LifeOnScreen\LaravelLogKeeper\Support\LogUtil;
 use Carbon\Carbon;
 
 class LogUtilTest extends TestCase
@@ -121,9 +121,9 @@ class LogUtilTest extends TestCase
             }
 
             if ('exception' == $result) {
-                $this->assertTrue((bool) $e);
+                $this->assertTrue((bool)$e);
             } else {
-                $this->assertFalse((bool) $e, "Expected: {$result} Obtained: {$date}");
+                $this->assertFalse((bool)$e, "Expected: {$result} Obtained: {$date}");
             }
         }
     }
@@ -133,7 +133,7 @@ class LogUtilTest extends TestCase
      */
     public function it_gets_the_diff()
     {
-        $today    = Carbon::today();
+        $today = Carbon::today();
         $logDate = Carbon::today()->subDays(10);
 
         $log = "laravel-{$logDate->toDateString()}.log";

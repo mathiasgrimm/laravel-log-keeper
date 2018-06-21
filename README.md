@@ -27,7 +27,7 @@ Laravel Log Keeper is available via Composer:
 ```json
 {
     "require": {
-        "mathiasgrimm/laravel-log-keeper": "1.*"
+        "lifeonscreen/laravel-log-keeper": "1.*"
     }
 }
 ```
@@ -43,7 +43,7 @@ Laravel Log Keeper is available via Composer:
 
 'providers' => [
     ...
-    MathiasGrimm\LaravelLogKeeper\Providers\LaravelServiceProvider::class,
+    LifeOnScreen\LaravelLogKeeper\Providers\LaravelServiceProvider::class,
     ...
 ],
 ```
@@ -54,7 +54,7 @@ Laravel Log Keeper is available via Composer:
 
 protected $commands = [
     ...
-    \MathiasGrimm\LaravelLogKeeper\Commands\LogKeeper::class
+    \LifeOnScreen\LaravelLogKeeper\Commands\LogKeeper::class
     ...
 ];
 
@@ -93,6 +93,11 @@ LARAVEL_LOG_KEEPER_REMOTE_PATH           = "myproject1-prod-01"
 
 ...
 
+```
+
+Can publish config with this command:
+```
+php artisan vendor:publish --provider=LifeOnScreen\LaravelLogKeeper\Providers\LaravelServiceProvider
 ```
 
 ```php
@@ -159,9 +164,10 @@ LARAVEL_LOG_KEEPER_REMOTE_PATH           = "myproject1-prod-01"
 
 ## Security
 
-If you discover any security related issues, please email mathiasgrimm@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please use issue tracker.
 
 ## Credits
 
 - [Mathias Grimm](https://github.com/mathiasgrimm)
+- [Jani Cerar](https://github.com/janicerar)
 

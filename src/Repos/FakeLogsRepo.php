@@ -1,11 +1,14 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Repos;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Repos;
 
 use Carbon\Carbon;
-use MathiasGrimm\LaravelLogKeeper\Support\LogUtil;
+use LifeOnScreen\LaravelLogKeeper\Support\LogUtil;
 
 class FakeLogsRepo implements LogsRepoInterface
 {
     protected $config;
+
     protected $logs;
 
     public function __construct(array $config)
@@ -13,12 +16,12 @@ class FakeLogsRepo implements LogsRepoInterface
         $this->config = $config;
 
         $localRetentionMinus1 = Carbon::today()->subDays($this->config['localRetentionDays'] - 1);
-        $localRetention       = Carbon::today()->subDays($this->config['localRetentionDays']);
-        $localRetentionPlus1  = Carbon::today()->subDays($this->config['localRetentionDays'] + 1);
+        $localRetention = Carbon::today()->subDays($this->config['localRetentionDays']);
+        $localRetentionPlus1 = Carbon::today()->subDays($this->config['localRetentionDays'] + 1);
 
         $remoteRetentionMinus1 = Carbon::today()->subDays($this->config['remoteRetentionDaysCalculated'] - 1);
-        $remoteRetention       = Carbon::today()->subDays($this->config['remoteRetentionDaysCalculated']);
-        $remoteRetentionPlus1  = Carbon::today()->subDays($this->config['remoteRetentionDaysCalculated'] + 1);
+        $remoteRetention = Carbon::today()->subDays($this->config['remoteRetentionDaysCalculated']);
+        $remoteRetentionPlus1 = Carbon::today()->subDays($this->config['remoteRetentionDaysCalculated'] + 1);
 
         $this->logs = [
             '/fake/storage/logs/laravel-old-2010-01-01.log',

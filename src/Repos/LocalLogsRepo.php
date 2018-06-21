@@ -1,20 +1,24 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Repos;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Repos;
 
 use Exception;
 use Illuminate\Filesystem\Filesystem;
-use MathiasGrimm\LaravelLogKeeper\Support\LogUtil;
+use LifeOnScreen\LaravelLogKeeper\Support\LogUtil;
 
 class LocalLogsRepo implements LogsRepoInterface
 {
     private $config;
+
     private $localLogPath;
+
     private $disk;
 
     public function __construct(array $config)
     {
-        $this->config       = $config;
+        $this->config = $config;
         $this->localLogPath = storage_path('logs');
-        $this->disk         = new Filesystem();
+        $this->disk = new Filesystem();
     }
 
     public function getLogs()
@@ -44,6 +48,11 @@ class LocalLogsRepo implements LogsRepoInterface
         $this->disk->delete($path);
     }
 
+    /**
+     * @param $log
+     * @param $compressedName
+     * @throws Exception
+     */
     public function compress($log, $compressedName)
     {
         $command = "cd {$this->localLogPath}; tar cjf {$compressedName} {$log}";
@@ -56,9 +65,15 @@ class LocalLogsRepo implements LogsRepoInterface
         $this->disk->delete("{$this->localLogPath}/{$log}");
     }
 
+    /**
+     * @param $log
+     * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function get($log)
     {
         $path = "{$this->localLogPath}/{$log}";
+
         return $this->disk->get($path);
     }
 

@@ -1,11 +1,15 @@
 {
-    "name": "mathiasgrimm/laravel-log-keeper",
+    "name": "lifeonscreen/laravel-log-keeper",
     "description": "Laravel Log Keeper helps rotating you logs while storing them anywhere you want with custom local/remote retention policies",
     "keywords": ["laravel", "log", "s3", "retention", "dropbox", "ftp", "sftp", "rotation", "disk", "drive", "remote"],
     "authors": [
         {
             "name": "Mathias Grimm",
             "email": "mathiasgrimm@gmail.com"
+        },
+        {
+            "name": "Jani Cerar",
+            "email": "jani.cerar@lifeonscreen.com"
         }
     ],
     "require": {
@@ -17,10 +21,17 @@
 
     "autoload": {
         "psr-4": {
-            "MathiasGrimm\\LaravelLogKeeper\\": "src/"
+            "LifeOnScreen\\LaravelLogKeeper\\": "src/"
         }
     },
     "autoload-dev": {
         "classmap": []
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LifeOnScreen\\LaravelLogKeeper\\Providers\\LaravelServiceProvider"
+            ]
+        }
     }
 }

@@ -1,8 +1,11 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Commands;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use MathiasGrimm\LaravelLogKeeper\Factories\LogKeeperServiceFactory;
+use LifeOnScreen\LaravelLogKeeper\Factories\LogKeeperServiceFactory;
+use Log;
 
 class LogKeeper extends Command
 {
@@ -13,14 +16,13 @@ class LogKeeper extends Command
      * @var string
      */
     protected $name = 'laravel-log-keeper';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Upload local logs, delete old logs both locally and remote';
-
-    private $config;
 
     /**
      * Execute the console command.
@@ -29,14 +31,12 @@ class LogKeeper extends Command
      */
     public function handle()
     {
-        $logger = \Log::getMonolog();
-
         try {
             $service = LogKeeperServiceFactory::buildFromLaravelConfig();
-            $logger  = $service->getLogger();
+            $service->getLogger();
             $service->work();
         } catch (Exception $e) {
-            $logger->error("Something went wrong: {$e->getMessage()}");
+            Log::critical("Something went wrong: {$e->getMessage()}");
         }
     }
 }

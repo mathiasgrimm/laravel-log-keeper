@@ -1,4 +1,6 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Repos;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Repos;
 
 interface LogsRepoInterface
 {

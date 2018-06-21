@@ -1,16 +1,26 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Repos;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Repos;
 
 use Exception;
 use \Storage;
-use MathiasGrimm\LaravelLogKeeper\Support\LogUtil;
+use LifeOnScreen\LaravelLogKeeper\Support\LogUtil;
 
 class RemoteLogsRepo implements LogsRepoInterface
 {
     private $config;
+
     private $localLogPath;
+
     private $disk;
+
     private $remotePath;
 
+    /**
+     * RemoteLogsRepo constructor.
+     * @param array $config
+     * @throws Exception
+     */
     public function __construct(array $config)
     {
         $this->config = $config;
@@ -20,15 +30,15 @@ class RemoteLogsRepo implements LogsRepoInterface
         }
 
         $this->localLogPath = storage_path('logs');
-        $this->disk         = Storage::disk($this->config['remote_disk']);
-        $this->remotePath   = $this->config['remote_path'] ? $this->config['remote_path'] . '/' : null;
+        $this->disk = Storage::disk($this->config['remote_disk']);
+        $this->remotePath = $this->config['remote_path'] ? $this->config['remote_path'] . '/' : null;
     }
 
     public function getLogs()
     {
-        $allLogs    = $this->disk->files($this->remotePath);
-        $logs       = LogUtil::getLogs($allLogs);
-        $logs       = LogUtil::mapBasename($logs);
+        $allLogs = $this->disk->files($this->remotePath);
+        $logs = LogUtil::getLogs($allLogs);
+        $logs = LogUtil::mapBasename($logs);
 
         return $logs;
     }
@@ -49,19 +59,29 @@ class RemoteLogsRepo implements LogsRepoInterface
 
     public function getCompressed()
     {
-        $allLogs    = $this->disk->files($this->remotePath);
-        $logs       = LogUtil::getCompressed($allLogs);
-        $logs       = LogUtil::mapBasename($logs);
+        $allLogs = $this->disk->files($this->remotePath);
+        $logs = LogUtil::getCompressed($allLogs);
+        $logs = LogUtil::mapBasename($logs);
 
         return $logs;
     }
 
+    /**
+     * @param $log
+     * @param $compressedName
+     * @throws Exception
+     */
     public function compress($log, $compressedName)
     {
         throw new Exception("Method not implemented yet");
         // TODO: Implement compress() method.
     }
 
+    /**
+     * @param $log
+     * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function get($log)
     {
         return $this->disk->get("{$this->remotePath}/{$log}");
