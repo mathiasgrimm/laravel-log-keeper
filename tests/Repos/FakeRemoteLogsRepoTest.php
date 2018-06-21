@@ -1,6 +1,6 @@
 <?php
 
-use MathiasGrimm\LaravelLogKeeper\Repos\FakeRemoteLogsRepo;
+use LifeOnScreen\LaravelLogKeeper\Repos\FakeRemoteLogsRepo;
 
 class FakeRemoteLogsRepoTest extends TestCase
 {
@@ -12,7 +12,7 @@ class FakeRemoteLogsRepoTest extends TestCase
         $config = config('laravel-log-keeper');
 
         $config['enabled_remote'] = true;
-        $config['remote_disk'   ] = null;
+        $config['remote_disk'] = null;
 
         try {
             $repo = new FakeRemoteLogsRepo($config);
@@ -22,8 +22,5 @@ class FakeRemoteLogsRepoTest extends TestCase
         }
 
     }
-
-    
-
 
 }

@@ -1,8 +1,10 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Factories;
+<?php
 
-use MathiasGrimm\LaravelLogKeeper\Repos\LocalLogsRepo;
-use MathiasGrimm\LaravelLogKeeper\Repos\RemoteLogsRepo;
-use MathiasGrimm\LaravelLogKeeper\Services\LogKeeperService;
+namespace LifeOnScreen\LaravelLogKeeper\Factories;
+
+use LifeOnScreen\LaravelLogKeeper\Repos\LocalLogsRepo;
+use LifeOnScreen\LaravelLogKeeper\Repos\RemoteLogsRepo;
+use LifeOnScreen\LaravelLogKeeper\Services\LogKeeperService;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -12,6 +14,7 @@ class LogKeeperServiceFactory
     /**
      * @param array $config
      * @return LogKeeperService
+     * @throws \Exception
      */
     public static function buildFromConfig(array $config)
     {
@@ -23,16 +26,21 @@ class LogKeeperServiceFactory
             $logger->pushHandler(new NullHandler());
         }
 
-        $localRepo  = new LocalLogsRepo($config);
+        $localRepo = new LocalLogsRepo($config);
         $remoteRepo = new RemoteLogsRepo($config);
-        $service    = new LogKeeperService($config, $localRepo, $remoteRepo, $logger);
+        $service = new LogKeeperService($config, $localRepo, $remoteRepo, $logger);
 
         return $service;
     }
 
+    /**
+     * @return LogKeeperService
+     * @throws \Exception
+     */
     public static function buildFromLaravelConfig()
     {
         $config = config('laravel-log-keeper');
+
         return static::buildFromConfig($config);
     }
 }

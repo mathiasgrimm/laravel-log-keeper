@@ -1,9 +1,16 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Repos;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Repos;
 
 use Exception;
 
 class FakeRemoteLogsRepo extends FakeLogsRepo
 {
+    /**
+     * FakeRemoteLogsRepo constructor.
+     * @param array $config
+     * @throws Exception
+     */
     public function __construct(array $config)
     {
         parent::__construct($config);

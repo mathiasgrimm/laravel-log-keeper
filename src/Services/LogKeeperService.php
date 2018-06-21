@@ -1,20 +1,28 @@
-<?php namespace MathiasGrimm\LaravelLogKeeper\Services;
+<?php
+
+namespace LifeOnScreen\LaravelLogKeeper\Services;
 
 use Exception;
-use MathiasGrimm\LaravelLogKeeper\Repos\LocalLogsRepoInterface;
-use MathiasGrimm\LaravelLogKeeper\Repos\LogsRepoInterface;
+use LifeOnScreen\LaravelLogKeeper\Repos\LocalLogsRepoInterface;
+use LifeOnScreen\LaravelLogKeeper\Repos\LogsRepoInterface;
 use Carbon\Carbon;
-use MathiasGrimm\LaravelLogKeeper\Support\LogUtil;
+use LifeOnScreen\LaravelLogKeeper\Support\LogUtil;
 use Psr\Log\LoggerInterface;
 
 class LogKeeperService
 {
     private $config;
+
     private $localRepo;
+
     private $remoteRepo;
+
     private $localRetentionDays;
+
     private $remoteRetentionDays;
+
     private $remoteRetentionDaysCalculated;
+
     private $logger;
 
     /**
@@ -32,6 +40,7 @@ class LogKeeperService
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+
         return $this;
     }
 
@@ -42,20 +51,21 @@ class LogKeeperService
 
     public function __construct($config, LogsRepoInterface $localRepo, LogsRepoInterface $remoteRepo, LoggerInterface $logger)
     {
-        $this->config                        = $config;
-        $this->localRepo                     = $localRepo;
-        $this->remoteRepo                    = $remoteRepo;
-        $this->today                         = Carbon::today();
-        $this->localRetentionDays            = $this->config['localRetentionDays'];
-        $this->remoteRetentionDays           = $this->config['remoteRetentionDays'];
+        $this->config = $config;
+        $this->localRepo = $localRepo;
+        $this->remoteRepo = $remoteRepo;
+        $this->today = Carbon::today();
+        $this->localRetentionDays = $this->config['localRetentionDays'];
+        $this->remoteRetentionDays = $this->config['remoteRetentionDays'];
         $this->remoteRetentionDaysCalculated = $this->config['remoteRetentionDaysCalculated'];
-        $this->logger                        = $logger;
+        $this->logger = $logger;
     }
 
     public function work()
     {
         if (!$this->config['enabled']) {
             $this->logger->warning("Log Keeper can't work because it is disabled");
+
             return;
         }
 
